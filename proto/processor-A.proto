@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package payment_processor_A;
+
+import "google/api/annotations.proto";
+
+message Payment {
+    string uuid = 1;
+    uint32 i_account = 2;
+    int32 amount = 3;
+}
+
+message MakePaymentRequest {
+    Payment payment = 1;
+}
+
+message MakePaymentResult {
+    string uuid = 1;
+    bool success = 2;
+    string message = 3;
+}
+
+service PaymentProcessorA {
+    rpc Pay(MakePaymentRequest) returns (MakePaymentResult) {
+        // curl -d '{"i_account": "123", "amount": "456"}' -XPOST https://localhost:<port>/PaymentProcessorA/Pay
+        option (google.api.http) = {
+            post: "/PaymentProcessorA/make_payment"
+            body: "payment"
+        };
+    }
+}
