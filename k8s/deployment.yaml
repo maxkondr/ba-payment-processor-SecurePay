@@ -1,20 +1,20 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ba-pp-SecurePay
+  name: ba-pp-secure-pay
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ba-pp-SecurePay
+      app: ba-pp-secure-pay
   template:
     metadata:
       labels:
-        app: ba-pp-SecurePay
+        app: ba-pp-secure-pay
     spec:
       containers:
-        - name: ba-pp-SecurePay
+        - name: ba-pp-secure-pay
           image: maxkondr/ba-pp-secure-pay
           ports:
           - name: grpc
