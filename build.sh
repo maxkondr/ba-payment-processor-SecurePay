@@ -1,15 +1,16 @@
 #!/bin/sh
 set -e
 
+go get -u github.com/googleapis/googleapis || true
 go get -u -d github.com/maxkondr/ba-payment-processor-dispatcher || true
 
 # build payment-processor-dispatcher Golang stubs
-protoc --proto_path=/Porta/repos/yakut_github/porta-microservices/googleapi/googleapis \
+protoc --proto_path=$GOPATH/src/github.com/googleapis/googleapis \
     --proto_path=$GOPATH/src/github.com/maxkondr/ba-payment-processor-dispatcher/proto \
     --go_out=plugins=grpc:$GOPATH/src/github.com/maxkondr/ba-payment-processor-dispatcher/proto \
     $GOPATH/src/github.com/maxkondr/ba-payment-processor-dispatcher/proto/processor-dispatcher.proto
 
-protoc --proto_path=/Porta/repos/yakut_github/porta-microservices/googleapi/googleapis \
+protoc --proto_path=$GOPATH/src/github.com/googleapis/googleapis \
     --proto_path=$GOPATH/src/github.com/maxkondr/ba-payment-processor-secure-pay/proto \
     --proto_path=$GOPATH/src/ \
     --go_out=plugins=grpc:$GOPATH/src/github.com/maxkondr/ba-payment-processor-secure-pay/proto \
