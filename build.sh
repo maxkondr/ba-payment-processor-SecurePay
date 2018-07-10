@@ -16,6 +16,6 @@ protoc --proto_path=$GOPATH/src/github.com/googleapis/googleapis \
     --go_out=plugins=grpc:$GOPATH/src/github.com/maxkondr/ba-payment-processor-secure-pay/proto \
     $GOPATH/src/github.com/maxkondr/ba-payment-processor-secure-pay/proto/SecurePay.proto
 
-CGO_ENABLED=0 GOOS=linux go build -a -o ba-payment-processor-secure-pay .
-# docker build -t maxkondr/ba-payment-processor-secure-pay .
-# docker push maxkondr/ba-payment-processor-secure-pay
+CGO_ENABLED=0 GOOS=linux go build -a -o ba-pp-SecurePay .
+# docker build -t maxkondr/ba-pp-secure-pay .
+# docker push maxkondr/ba-pp-secure-pay

@@ -1,4 +1,4 @@
 FROM scratch
-ADD ba-payment-processor-secure-pay ba-payment-processor-secure-pay
+ADD ba-pp-SecurePay ba-pp-SecurePay
 EXPOSE 7777
-ENTRYPOINT ["/ba-payment-processor-secure-pay"]
+ENTRYPOINT ["/ba-pp-SecurePay"]

@@ -22,6 +22,7 @@ var (
 	zipkinURL       = flag.String("url", "http://zipkin.tracing:9411/api/v1/spans", "Zipkin server URL")
 	zipkinTracer    opentracing.Tracer
 	zipkinCollector zipkintracer.Collector
+	myPort          = 7777
 )
 
 func initTracerZipkin() {
@@ -38,7 +39,7 @@ func initTracerZipkin() {
 
 	var (
 		debug       = false
-		hostPort    = fmt.Sprintf("%s:7777", myIP)
+		hostPort    = fmt.Sprintf("%s:%d", myIP, myPort)
 		serviceName = fmt.Sprintf("%s.%s(%s)", myName, myNS, myIP)
 	)
 
@@ -65,7 +66,7 @@ func main() {
 	defer zipkinCollector.Close()
 
 	// create a listener on TCP port 7777
-	lis, err := net.Listen("tcp", ":7777")
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", myPort))
 	if err != nil {
 		grpclog.Fatalf("failed to listen: %v", err)
 	}
@@ -83,7 +84,7 @@ func main() {
 
 	SecurePay.RegisterPaymentProcessorSecurePayServer(grpcServer, &paymentProcessorSecurePayImpl.Server{})
 	// start the server
-	grpclog.Info("Start listening on port 7777")
+	grpclog.Infof("Start listening on port %d", myPort)
 	if err := grpcServer.Serve(lis); err != nil {
 		grpclog.Fatalf("failed to serve: %s", err)
 	}
