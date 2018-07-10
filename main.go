@@ -81,8 +81,9 @@ func main() {
 		),
 	)
 
-	paymentProcessorA.RegisterPaymentProcessorAServer(grpcServer, &paymentProcessorAImpl.Server{})
+	SecurePay.RegisterPaymentProcessorSecurePayServer(grpcServer, &paymentProcessorSecurePayImpl.Server{})
 	// start the server
+	grpclog.Info("Start listening on port 7777")
 	if err := grpcServer.Serve(lis); err != nil {
 		grpclog.Fatalf("failed to serve: %s", err)
 	}
