@@ -8,8 +8,8 @@ import (
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
-	"github.com/maxkondr/ba-payment-processor-A/proto"
-	"github.com/maxkondr/ba-payment-processor-A/server"
+	"github.com/maxkondr/ba-payment-processor-secure-pay/proto"
+	"github.com/maxkondr/ba-payment-processor-secure-pay/server"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/openzipkin/zipkin-go-opentracing"
 	zipkinot "github.com/openzipkin/zipkin-go-opentracing"
