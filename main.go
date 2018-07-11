@@ -8,8 +8,8 @@ import (
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
-	"github.com/maxkondr/ba-payment-processor-secure-pay/proto"
 	"github.com/maxkondr/ba-payment-processor-secure-pay/server"
+	"github.com/maxkondr/ba-proto/paymentProcessor"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/openzipkin/zipkin-go-opentracing"
 	zipkinot "github.com/openzipkin/zipkin-go-opentracing"
@@ -82,7 +82,7 @@ func main() {
 		),
 	)
 
-	SecurePay.RegisterPaymentProcessorSecurePayServer(grpcServer, &paymentProcessorSecurePayImpl.Server{})
+	paymentProcessor.RegisterPaymentProcessorServer(grpcServer, &paymentProcessorSecurePayImpl.Server{})
 	// start the server
 	grpclog.Infof("Start listening on port %d", myPort)
 	if err := grpcServer.Serve(lis); err != nil {

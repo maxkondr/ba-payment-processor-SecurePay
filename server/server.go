@@ -2,13 +2,13 @@ package paymentProcessorSecurePayImpl
 
 import (
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/maxkondr/ba-payment-processor-dispatcher/proto"
+	"github.com/maxkondr/ba-proto/paymentProcessor"
 
 	context "golang.org/x/net/context"
 )
 
 var (
-	paymentProcessorInfo = &PaymentProcessorDispatcher.PaymentProcessorInfo{
+	paymentProcessorInfo = &paymentProcessor.PaymentProcessorInfo{
 		IOnlinePaymentProcessor: 1,
 		Processor:               "SecurePay",
 		WebLink:                 "",
@@ -27,13 +27,13 @@ var (
 type Server struct{}
 
 // GetInfo is interface func ba-payment-processor-A.GetInfo
-func (s *Server) GetInfo(ctx context.Context, in *empty.Empty) (*PaymentProcessorDispatcher.PaymentProcessorInfo, error) {
+func (s *Server) GetInfo(ctx context.Context, in *empty.Empty) (*paymentProcessor.PaymentProcessorInfo, error) {
 	return paymentProcessorInfo, nil
 }
 
 // Pay is interface func ba-payment-processor-A.Pay
-func (s *Server) Pay(context context.Context, req *PaymentProcessorDispatcher.MakePaymentRequest) (*PaymentProcessorDispatcher.MakePaymentResponse, error) {
-	return &PaymentProcessorDispatcher.MakePaymentResponse{
+func (s *Server) Pay(context context.Context, req *paymentProcessor.MakePaymentRequest) (*paymentProcessor.MakePaymentResponse, error) {
+	return &paymentProcessor.MakePaymentResponse{
 		Uuid:         req.Uuid,
 		Success:      true,
 		Errstring:    "",
