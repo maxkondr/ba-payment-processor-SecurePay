@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	zipkinURL       = flag.String("url", "http://zipkin.tracing:9411/api/v1/spans", "Zipkin server URL")
+	zipkinURL       = flag.String("zipkinUrl", "http://zipkin.tracing:9411/api/v1/spans", "Zipkin server URL")
 	zipkinTracer    opentracing.Tracer
 	zipkinCollector zipkintracer.Collector
 	myPort          = 7777
