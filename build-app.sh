@@ -10,4 +10,4 @@ protoc --proto_path=$GOPATH/src/github.com/googleapis/googleapis \
     --go_out=plugins=grpc:$GOPATH/src/ \
     $GOPATH/src/github.com/maxkondr/ba-proto/paymentProcessor/payment-processor.proto
 
-CGO_ENABLED=0 GOOS=linux go build -a -o ba-pp-SecurePay .
+CGO_ENABLED=0 GOOS=linux go build -ldflags '-w -s' -a -o ba-pp-SecurePay .
