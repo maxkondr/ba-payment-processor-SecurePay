@@ -7,6 +7,8 @@ import (
 	"log"
 	"net"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
@@ -121,10 +123,21 @@ func main() {
 		),
 	)
 
-	paymentProcessor.RegisterPaymentProcessorServer(grpcServer, &paymentProcessorSecurePayImpl.Server{})
+	paymentProcessor.RegisterPaymentProcessorServer(grpcServer, paymentProcessorSecurePayImpl.NewServer())
 	// start the server
-	grpclog.Infof("Start listening on port %d", myPort)
-	if err := grpcServer.Serve(lis); err != nil {
-		grpclog.Fatalf("failed to serve: %s", err)
-	}
+	go func() {
+		grpclog.Infof("Start listening on port %d", myPort)
+		if err := grpcServer.Serve(lis); err != nil {
+			grpclog.Fatalf("failed to serve: %s", err)
+		}
+	}()
+
+	// Listen for OS signals
+	ch := make(chan os.Signal, 10)
+	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
+	<-ch
+	close(ch)
+	grpcServer.GracefulStop()
+
+	grpclog.Info("Finished")
 }

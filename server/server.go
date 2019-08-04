@@ -32,6 +32,10 @@ func getLogger(context context.Context) *logrus.Entry {
 // Server implementation for SecurePay
 type Server struct{}
 
+func NewServer() *Server {
+	return &Server{}
+}
+
 // GetInfo is interface func ba-payment-processor-A.GetInfo
 func (s *Server) GetInfo(ctx context.Context, in *empty.Empty) (*paymentProcessor.PaymentProcessorInfo, error) {
 	getLogger(ctx).Info("Received request")
@@ -40,9 +44,9 @@ func (s *Server) GetInfo(ctx context.Context, in *empty.Empty) (*paymentProcesso
 
 // Pay is interface func ba-payment-processor-A.Pay
 func (s *Server) Pay(context context.Context, req *paymentProcessor.MakePaymentRequest) (*paymentProcessor.MakePaymentResponse, error) {
-	getLogger(context).Info("Received request with uuid:", req.Uuid)
+	getLogger(context).Info("Received request with uuid:", req.GetUuid())
 	return &paymentProcessor.MakePaymentResponse{
-		Uuid:         req.Uuid,
+		Uuid:         req.GetUuid(),
 		Success:      true,
 		Errstring:    "",
 		Md5:          "md5_hash",
